@@ -1,0 +1,35 @@
+# MIT Licence
+# Copyright 2026 feraxhp
+
+name: Publish and Build library
+run-name: 🚀 ¡navigation release! 🚀
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - created
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  navigation:
+    name: S1
+    uses: feraxhp/kactions/.github/workflows/publish.yml@v1.0.0
+    with:
+      module: ':navigation'
+    secrets:
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+      MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+      SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+      SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+
+  pages:
+    name: S2
+    uses: feraxhp/kactions/.github/workflows/pages.yml@v1.0.0
+    with:
+      platform: 'Wasm'
+      module: ':sample:webApp'

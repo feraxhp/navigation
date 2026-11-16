@@ -42,18 +42,31 @@ kotlin {
         }
 
     }
+
+    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        compilations["main"].compileTaskProvider.configure {
+            compilerOptions {
+                freeCompilerArgs.add("-Xexport-kdoc")
+            }
+        }
+    }
 }
 
 //Publishing your Kotlin Multiplatform library to Maven Central
 //https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html
 mavenPublishing {
     publishToMavenCentral()
-    coordinates("com.feraxhp.navigation", "navigation", "1.0.0")
+    coordinates(
+        groupId = "com.feraxhp.navigation",
+        artifactId = "navigation",
+        version = "0.1.0"
+    )
 
     pom {
         name = "navigation"
-        description = "Kotlin Multiplatform library"
-        url = "github url" //todo
+        description = "A lightweight and concise Compose Multiplatform navigation wrapper for Navigation 3."
+        url = "https://github.com/feraxhp/navigation"
 
         licenses {
             license {
@@ -64,15 +77,16 @@ mavenPublishing {
 
         developers {
             developer {
-                id = "" //todo github nickname
-                name = "" //todo full name
-                email = "" //todo email
+                id = "feraxhp"
+                name = "feraxhp"
+                email = "feraxhp+mvn@gmail.com"
             }
         }
 
         scm {
-            url = "github url" //todo
+            url = "https://github.com/feraxhp/navigation"
         }
     }
+
     if (project.hasProperty("signing.keyId")) signAllPublications()
 }
