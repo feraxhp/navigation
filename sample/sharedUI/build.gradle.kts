@@ -27,6 +27,7 @@ kotlin {
             api(libs.compose.runtime)
             api(libs.compose.ui)
             api(libs.compose.foundation)
+            api(libs.compose.material3)
             implementation(libs.compose.nav3)
             implementation(libs.androidx.lifecycle.viewmodel.navigation3)
             implementation(project(":navigation"))

@@ -3,7 +3,7 @@ package com.feraxhp.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.EntryProviderScope
@@ -34,7 +34,7 @@ fun Navigator(
     onBack: (NavBackStack<NavKey>.() -> Unit)? = null,
     entries: EntryProviderScope<NavKey>.() -> Unit
 ) {
-    val navigator = rememberSaveableNavBackStack(start)
+    val navigator = rememberNavBackStack(start)
     Navigator(
         backStack = navigator,
         modifier = modifier,
@@ -70,13 +70,12 @@ fun Navigator(
 }
 
 /**
- * Remembers a [NavBackStack] without requiring manual polymorphic serializer registration.
+ * Remembers a [NavBackStack] in the current composition hierarchy.
  */
 @Composable
-fun rememberSaveableNavBackStack(start: NavKey): NavBackStack<NavKey> {
-    val stateList = rememberSaveable { mutableStateListOf(start) }
-    return androidx.compose.runtime.remember(stateList) {
-        NavBackStack(stateList)
+fun rememberNavBackStack(start: NavKey): NavBackStack<NavKey> {
+    return remember {
+        NavBackStack(mutableStateListOf(start))
     }
 }
 

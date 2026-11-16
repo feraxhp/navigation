@@ -31,7 +31,9 @@ kotlin {
         commonMain.dependencies {
             api(libs.compose.ui)
             api(libs.compose.runtime)
+            api(libs.compose.foundation)
             api(libs.compose.nav3)
+            api(libs.androidx.lifecycle.runtime)
             implementation(libs.androidx.lifecycle.viewmodel.navigation3)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kermit)
