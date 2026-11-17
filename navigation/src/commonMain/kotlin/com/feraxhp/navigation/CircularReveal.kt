@@ -256,10 +256,10 @@ fun CircularRevealContainer(
                         // Gesture was CANCELLED: skip animation and snap immediately to 100% visible!
                         swipeProgress.snapTo(-1f)
                     } else {
-                        // Gesture was CONFIRMED: close the remaining circle smoothly
+                        // Gesture was CONFIRMED: close the remaining circle smoothly with exitAnimationSpec
                         swipeProgress.animateTo(
                             targetValue = 0f,
-                            animationSpec = tween(300, easing = EaseOutCubic)
+                            animationSpec = exitAnimationSpec
                         )
                     }
                     isGestureDriven.value = false
